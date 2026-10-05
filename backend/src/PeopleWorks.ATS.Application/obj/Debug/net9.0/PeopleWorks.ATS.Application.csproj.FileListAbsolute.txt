@@ -1,0 +1,16 @@
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\bin\Debug\net9.0\PeopleWorks.ATS.Application.deps.json
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\bin\Debug\net9.0\PeopleWorks.ATS.Application.dll
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\bin\Debug\net9.0\PeopleWorks.ATS.Application.pdb
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\bin\Debug\net9.0\PeopleWorks.ATS.Domain.dll
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\bin\Debug\net9.0\PeopleWorks.ATS.Domain.pdb
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.csproj.AssemblyReference.cache
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.AssemblyInfoInputs.cache
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.AssemblyInfo.cs
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.csproj.CoreCompileInputs.cache
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.sourcelink.json
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWo.E72A6EB4.Up2Date
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.dll
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\refint\PeopleWorks.ATS.Application.dll
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\PeopleWorks.ATS.Application.pdb
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Application\obj\Debug\net9.0\ref\PeopleWorks.ATS.Application.dll

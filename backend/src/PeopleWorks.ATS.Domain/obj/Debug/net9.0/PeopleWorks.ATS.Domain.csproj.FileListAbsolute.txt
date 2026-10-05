@@ -1,0 +1,12 @@
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\bin\Debug\net9.0\PeopleWorks.ATS.Domain.deps.json
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\bin\Debug\net9.0\PeopleWorks.ATS.Domain.dll
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\bin\Debug\net9.0\PeopleWorks.ATS.Domain.pdb
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\PeopleWorks.ATS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\PeopleWorks.ATS.Domain.AssemblyInfoInputs.cache
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\PeopleWorks.ATS.Domain.AssemblyInfo.cs
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\PeopleWorks.ATS.Domain.csproj.CoreCompileInputs.cache
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\PeopleWorks.ATS.Domain.sourcelink.json
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\PeopleWorks.ATS.Domain.dll
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\refint\PeopleWorks.ATS.Domain.dll
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\PeopleWorks.ATS.Domain.pdb
+C:\Users\xdI005\Desktop\ATS UI\backend\src\PeopleWorks.ATS.Domain\obj\Debug\net9.0\ref\PeopleWorks.ATS.Domain.dll

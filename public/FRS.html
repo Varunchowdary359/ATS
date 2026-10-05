@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FRS for ATS | PeopleWorks ATS</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- html2pdf.js for 1-click PDF download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media print {
+      .no-print {
+        display: none !important;
+      }
+      body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-size: 10pt;
+      }
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+      .card-break-avoid {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .shadow-sm, .shadow-md, .shadow-xl, .shadow-2xl, .shadow-xs {
+        box-shadow: none !important;
+        border: 1px solid #e2e8f0 !important;
+      }
+      header, .sticky-bar {
+        position: static !important;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen selection:bg-sky-500 selection:text-white">
+
+  <!-- ── Top Action Navigation Bar (Hidden in Print) ────────────────────────── -->
+  <div class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 px-6 py-3.5 shadow-sm no-print">
+    <div class="max-w-5xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-500 text-white flex items-center justify-center font-bold shadow-md shadow-sky-500/20">
+          <i data-lucide="file-check-2" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h1 class="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
+            FRS for ATS
+            <span class="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">PeopleWorks ATS</span>
+          </h1>
+          <p class="text-[11px] text-slate-500">Applicant Tracking System — Functional Requirement Specification</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <button onclick="downloadAsPDF()" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-700 text-white text-xs font-semibold shadow-sm hover:shadow transition-all flex items-center gap-2 cursor-pointer active:scale-95">
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Save as PDF</span>
+        </button>
+        <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold border border-slate-300/80 transition-all flex items-center gap-1.5 cursor-pointer">
+          <i data-lucide="printer" class="w-4 h-4"></i>
+          <span>Print</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Main Content Container ─────────────────────────────────────────────── -->
+  <main id="frs-content" class="max-w-4xl mx-auto p-6 sm:p-10 my-6 bg-white border border-slate-200/80 rounded-3xl shadow-xl shadow-slate-200/40 space-y-12">
+
+    <!-- Document Header -->
+    <header class="border-b border-slate-200 pb-7">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-3">
+        <span class="text-xs font-bold uppercase tracking-widest text-sky-600 bg-sky-50 px-3 py-1 rounded-lg border border-sky-100">
+          Enterprise Specification
+        </span>
+        <div class="text-xs font-mono text-slate-400">
+          Product: <span class="font-semibold text-slate-800">PeopleWorks ATS</span> | Version: <span class="font-semibold text-slate-800">2.5.0</span>
+        </div>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight mb-2">
+        FRS for ATS
+      </h1>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        Comprehensive Functional Requirement Specification for the <strong>PeopleWorks Applicant Tracking System (ATS)</strong>, detailing end-to-end module workflows, governance stage-gates, role mappings, and execution pipelines across all recruitment modules.
+      </p>
+    </header>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         MODULE 1: JOB REQUISITION LIFECYCLE
+    ═════════════════════════════════════════════════════════════════════════ -->
+    <section class="space-y-8">
+      
+      <!-- Module 1 Title Banner -->
+      <div class="bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-transparent p-4 rounded-2xl border border-blue-200/80">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2.5 py-0.5 rounded-md bg-blue-600 text-white font-mono text-[10px] font-bold">MODULE 1</span>
+          <span class="text-xs font-bold text-blue-900 uppercase tracking-wider">Headcount &amp; Budget Governance</span>
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-900">Job Requisition Module (4-Stage Approval Chain)</h2>
+        <p class="text-xs text-slate-600 mt-1">
+          Governs how hiring demand is originated, justified, budget-cleared, and authorized by senior leadership.
+        </p>
+      </div>
+
+      <!-- 1.1 The 4 Sequential Approval Stages -->
+      <div class="space-y-4 card-break-avoid">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-xs">1.1</div>
+          <h3 class="text-base font-bold text-slate-900 tracking-tight">The 4 Sequential Approval Stages</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <!-- Stage 1 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 card-break-avoid space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px]">Stage 1: Originator</span>
+              <span class="text-[10px] font-mono text-slate-400">Step 1</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="user-plus" class="w-3.5 h-3.5 text-blue-600"></i>
+              Hiring Manager (Submitted)
+            </h4>
+            <p class="text-[11.5px] text-slate-600 leading-relaxed">
+              <strong>Action:</strong> Identifies talent need, fills target title, headcount count, budget range, and business justification, then submits the requisition.
+            </p>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 card-break-avoid space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold text-[10px]">Stage 2: Level 1 Sign-off</span>
+              <span class="text-[10px] font-mono text-slate-400">Step 2</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="building" class="w-3.5 h-3.5 text-purple-600"></i>
+              Department Head (HOD)
+            </h4>
+            <p class="text-[11.5px] text-slate-600 leading-relaxed">
+              <strong>Action:</strong> Validates team workload, verifies replacement vs new headcount expansion, checks seniority, and signs off Level 1 approval.
+            </p>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 card-break-avoid space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px]">Stage 3: Level 2 Budget Clearance</span>
+              <span class="text-[10px] font-mono text-slate-400">Step 3</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="wallet" class="w-3.5 h-3.5 text-amber-600"></i>
+              Finance Controller
+            </h4>
+            <p class="text-[11.5px] text-slate-600 leading-relaxed">
+              <strong>Action:</strong> Cross-checks requested salary band against sanctioned corporate budgets and assigns the official Cost Center / Client project code.
+            </p>
+          </div>
+
+          <!-- Stage 4 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 card-break-avoid space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Stage 4: Final Authorization</span>
+              <span class="text-[10px] font-mono text-slate-400">Step 4</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+              HR / Talent Acquisition Lead
+            </h4>
+            <p class="text-[11.5px] text-slate-600 leading-relaxed">
+              <strong>Action:</strong> Grants final approval, stamps the permanent Requisition ID (e.g. <code class="font-mono bg-white px-1">REQ-2026-0001</code>), and assigns the lead recruiter.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.2 UI Role Mapping for Requisitions -->
+      <div class="space-y-4 card-break-avoid">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-xs">1.2</div>
+          <h3 class="text-base font-bold text-slate-900 tracking-tight">Requisition UI Role Mapping</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-blue-700 block mb-1">1. Hiring Manager:</strong>
+              <span class="text-slate-600">Creates requisitions, defines requirements &amp; salary targets, and tracks approval progress.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-blue-600 bg-blue-50 px-2 py-0.5 rounded w-fit">Stage: Creator (HM)</div>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-purple-700 block mb-1">2. Department Head:</strong>
+              <span class="text-slate-600">Reviews headcount alignment, team capacity needs, and signs off Level 1 management approval.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-purple-600 bg-purple-50 px-2 py-0.5 rounded w-fit">Stage: L1 Sign-off</div>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-amber-700 block mb-1">3. Finance Approver:</strong>
+              <span class="text-slate-600">Performs financial audit, verifies compensation bands, assigns Cost Center / GL codes, and clears Level 2 budget.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-amber-600 bg-amber-50 px-2 py-0.5 rounded w-fit">Stage: L2 Budget Clearance</div>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-emerald-700 block mb-1">4. Recruiter / HR:</strong>
+              <span class="text-slate-600">Conducts final HR sign-off (L3), assigns lead recruiters, and unlocks JD drafting action.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded w-fit">Stage: L3 &amp; Sourcing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.3 Step-by-Step Requisition Flow -->
+      <div class="space-y-4 card-break-avoid">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-xs">1.3</div>
+          <h3 class="text-base font-bold text-slate-900 tracking-tight">Step-by-Step Requisition Approval Flow</h3>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <!-- Step 1 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">1</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Hiring Manager Creates &amp; Submits Requisition</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Actor: Hiring Manager</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Enters Job Title, Number of Openings, Department, Salary Band, and Justification. Clicks <strong>Submit</strong>. Requisition state moves to <span class="font-mono text-purple-700 font-bold">Pending L1 (Department Head)</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">2</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Department Head Review &amp; Approval (L1)</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200">Actor: Department Head</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Reviews team capacity. Clicks <strong>Approve (Department Head)</strong>. Requisition state moves to <span class="font-mono text-amber-700 font-bold">Pending L2 (Finance Controller)</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-amber-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">3</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Finance Controller Budget Clearance (L2)</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">Actor: Finance Approver</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Verifies compensation band against departmental budget, maps Cost Center code, and clicks <strong>Approve (Finance)</strong>. State moves to <span class="font-mono text-emerald-700 font-bold">Pending L3 (HR Lead)</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">4</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">HR Lead Final Authorization &amp; ID Lock (L3)</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Actor: HR / TA Lead</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Approves sourcing feasibility and assigns lead recruiter. Requisition moves to <span class="font-mono text-emerald-800 font-bold">APPROVED</span> with permanent ID locked (<code class="font-mono bg-slate-100 px-1">REQ-2026-0001</code>).
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1.4 Requisition Visual Summary Bar -->
+      <div class="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 text-xs overflow-x-auto space-y-2 card-break-avoid">
+        <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">Requisition 4-Stage Summary Flow:</div>
+        <div class="flex items-center gap-2 text-[11px] font-mono whitespace-nowrap">
+          <span class="p-2 bg-blue-600 rounded text-white font-bold">1. HM Submits</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-purple-600 rounded text-white font-bold">2. HOD Approves</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-amber-600 rounded text-white font-bold">3. Finance Approves</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-emerald-600 rounded text-white font-bold">4. HR Lead Approves</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-sky-400 rounded text-slate-950 font-bold">Requisition Approved (REQ-XXXX)</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         MODULE 2: JOB DESCRIPTION (JD) LIFECYCLE
+    ═════════════════════════════════════════════════════════════════════════ -->
+    <section class="space-y-8 page-break">
+      
+      <!-- Module 2 Title Banner -->
+      <div class="bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-transparent p-4 rounded-2xl border border-emerald-200/80">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2.5 py-0.5 rounded-md bg-emerald-600 text-white font-mono text-[10px] font-bold">MODULE 2</span>
+          <span class="text-xs font-bold text-emerald-900 uppercase tracking-wider">Content, Calibration &amp; Publishing</span>
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-900">Job Description (JD) Module (3-Stage Governance &amp; Publishing)</h2>
+        <p class="text-xs text-slate-600 mt-1">
+          Governs how approved requisitions are transformed into calibrated Job Descriptions, reviewed, and published across candidate sourcing channels.
+        </p>
+      </div>
+
+      <!-- 2.1 The 3 Sequential JD Review & Approval Stages -->
+      <div class="space-y-4 card-break-avoid">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center text-xs">2.1</div>
+          <h3 class="text-base font-bold text-slate-900 tracking-tight">The 3 Sequential JD Governance Stages</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+          <!-- Stage 1 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 card-break-avoid space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px]">Stage 1: Author</span>
+              <span class="text-[10px] font-mono text-slate-400">Step 1</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="file-edit" class="w-3.5 h-3.5 text-blue-600"></i>
+              Recruiter / TA Specialist
+            </h4>
+            <p class="text-[11.5px] text-slate-600 leading-relaxed">
+              <strong>Action:</strong> Selects the <strong>Mandatory Linked Requisition</strong>, drafts responsibilities, requirements, and salary band via AI or Enterprise Templates, then submits for review.
+            </p>
+          </div>
+
+          <!-- Stage 2 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 card-break-avoid space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold text-[10px]">Stage 2: Technical Review</span>
+              <span class="text-[10px] font-mono text-slate-400">Step 2</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="user-check" class="w-3.5 h-3.5 text-purple-600"></i>
+              Hiring Manager
+            </h4>
+            <p class="text-[11.5px] text-slate-600 leading-relaxed">
+              <strong>Action:</strong> Validates technical role mission, primary daily duties, mandatory skill matrix weights, and approves technical calibration.
+            </p>
+          </div>
+
+          <!-- Stage 3 -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 card-break-avoid space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Stage 3: Compliance Clearance</span>
+              <span class="text-[10px] font-mono text-slate-400">Step 3</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600"></i>
+              HR &amp; Compliance Lead
+            </h4>
+            <p class="text-[11.5px] text-slate-600 leading-relaxed">
+              <strong>Action:</strong> Conducts EEO, diversity, and regulatory review, ensures salary transparency standards, and gives final sign-off unlocking multi-portal publishing.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.2 UI Role Mapping for JD Lifecycle -->
+      <div class="space-y-4 card-break-avoid">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center text-xs">2.2</div>
+          <h3 class="text-base font-bold text-slate-900 tracking-tight">Job Description (JD) UI Role Mapping</h3>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-blue-700 block mb-1">1. Recruiter / HR View:</strong>
+              <span class="text-slate-600">Selects mandatory linked requisition, creates JDs using AI/Templates, edits content, and manages multi-channel distribution.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-blue-600 bg-blue-50 px-2 py-0.5 rounded w-fit">Stage: JD Author &amp; Sourcing</div>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-purple-700 block mb-1">2. Hiring Manager View:</strong>
+              <span class="text-slate-600">Inspects drafted skills, calibrates interview expectations, and approves technical scope for the team.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-purple-600 bg-purple-50 px-2 py-0.5 rounded w-fit">Stage: Technical Approval</div>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-emerald-700 block mb-1">3. HR / Compliance View:</strong>
+              <span class="text-slate-600">Performs legal, brand, and inclusivity verification; authorizes the JD for live job board syndication.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded w-fit">Stage: Compliance Approval</div>
+          </div>
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200 flex flex-col justify-between">
+            <div>
+              <strong class="text-slate-800 block mb-1">4. Super Admin View:</strong>
+              <span class="text-slate-600">Maintains enterprise role templates, automated workflow rules, and platform audit compliance.</span>
+            </div>
+            <div class="mt-2 text-[10px] font-mono text-slate-700 bg-slate-200 px-2 py-0.5 rounded w-fit">Stage: Global Administration</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.3 Step-by-Step JD Flow -->
+      <div class="space-y-4 card-break-avoid">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center text-xs">2.3</div>
+          <h3 class="text-base font-bold text-slate-900 tracking-tight">Step-by-Step Job Description (JD) Flow</h3>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <!-- Step 1 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">1</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Recruiter Selects Mandatory Requisition &amp; Drafts JD</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Actor: Recruiter</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Recruiter opens JD Creator. Selects approved requisition from the mandatory dropdown (<code class="font-mono bg-slate-100 px-1">-- Select Linked Requisition --</code> ➔ <code class="font-mono bg-blue-50 text-blue-700 px-1">REQ-2026-0001</code>). Data (Title, Dept, Band, Openings) is auto-populated. Generates content via AI, Templates, or Manual drafting.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">2</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Recruiter Submits JD for Workflow Review</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">Actor: Recruiter</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Clicks <strong>Submit for Approval</strong>. System assigns sequential approval chain. State moves to <span class="font-mono text-purple-700 font-bold">Pending Approval (Stage 1: Hiring Manager Technical Scope)</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">3</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Hiring Manager Signs Off Technical Scope</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200">Actor: Hiring Manager</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Hiring Manager validates responsibilities and skills. Clicks <strong>Approve Stage (Hiring Manager)</strong>. State advances to <span class="font-mono text-emerald-700 font-bold">Pending Approval (Stage 2: HR / Compliance)</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">4</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">HR &amp; Compliance Sign-off &amp; Approval Complete</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-50 text-emerald-700 border border-emerald-200">Actor: HR / Legal</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                HR verifies compliance standards and clicks <strong>Approve Stage (HR Lead)</strong>. JD status becomes <span class="font-mono text-emerald-800 font-bold">APPROVED</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-300 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">5</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-emerald-950 text-sm">Recruiter Publishes Job to Multi-Portals</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-600 text-white">Live Sourcing</span>
+              </div>
+              <p class="text-emerald-900 leading-relaxed text-[11.5px]">
+                Recruiter clicks <strong>Publish Job</strong>. Job posting is simultaneously syndicated to <strong>Careers Portal</strong>, <strong>LinkedIn</strong>, <strong>Indeed</strong>, <strong>Naukri</strong>, and <strong>Employee Referrals</strong>. Direct application flow activates!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2.4 JD Visual Summary Bar -->
+      <div class="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 text-xs overflow-x-auto space-y-2 card-break-avoid">
+        <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">Job Description (JD) Summary Flow:</div>
+        <div class="flex items-center gap-2 text-[11px] font-mono whitespace-nowrap">
+          <span class="p-2 bg-blue-600 rounded text-white font-bold">1. Select Mandatory REQ</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-indigo-600 rounded text-white font-bold">2. Recruiter Drafts</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-purple-600 rounded text-white font-bold">3. HM Technical Approval</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-emerald-600 rounded text-white font-bold">4. HR Compliance Sign-off</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-cyan-400 rounded text-slate-950 font-bold">5. Ready for Multi-Channel Broadcast</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         CHAPTER 3: JOB POSTING & MULTI-CHANNEL SYNDICATION MODULE
+    ═════════════════════════════════════════════════════════════════════════ -->
+    <section class="space-y-8 page-break">
+      
+      <!-- Chapter Header -->
+      <div class="border-b-2 border-slate-900 pb-3">
+        <div class="flex items-center gap-2 text-xs font-mono font-bold text-blue-600 tracking-wider uppercase">
+          <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+          Module Specification • Chapter 3
+        </div>
+        <h2 class="text-2xl font-black text-slate-900 mt-1">
+          Job Posting &amp; Multi-Channel Syndication (Distribution Governance)
+        </h2>
+        <p class="text-slate-500 text-xs mt-1">
+          End-to-end multi-board distribution, candidate source attribution, custom application screening, and campaign analytics.
+        </p>
+      </div>
+
+      <!-- 3.1 Business Objective & Strict Governance Rules -->
+      <div class="space-y-3 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-blue-600"></span>
+          3.1 Business Objective &amp; Core Governance Rules
+        </h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          The <strong>Job Posting Hub</strong> acts as the enterprise broadcast center. Once a Job Description completes its mandatory 2-stage approval, recruiters can syndicate the approved job specifications across internal and external talent channels simultaneously with automated candidate tracking and screening.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <div class="p-3.5 rounded-xl border border-blue-200 bg-blue-50/50 space-y-1 text-xs">
+            <strong class="text-blue-900 font-bold flex items-center gap-1.5 text-xs">
+              <span class="text-base">🔒</span> Mandatory Approved JD
+            </strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              Strict governance block: Only JDs in <span class="font-mono font-bold text-emerald-700">Approved</span> or <span class="font-mono font-bold text-blue-700">Published</span> state can be broadcast. Unapproved or drafted JDs are locked.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-indigo-200 bg-indigo-50/50 space-y-1 text-xs">
+            <strong class="text-indigo-900 font-bold flex items-center gap-1.5 text-xs">
+              <span class="text-base">🎯</span> Automated UTM Source Attribution
+            </strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              Every channel receives a cryptographically generated, unique tracking link with parameters (<span class="font-mono text-[10px]">utm_source=linkedin</span>) to attribute 100% of candidate applications.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-purple-200 bg-purple-50/50 space-y-1 text-xs">
+            <strong class="text-purple-900 font-bold flex items-center gap-1.5 text-xs">
+              <span class="text-base">⚡</span> 1-Click Instant / Scheduled Broadcast
+            </strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              Publish immediately to all selected boards or schedule release dates with automated campaign expiry timers and budget caps.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.2 3-Role Governance & Permission Matrix for Job Postings -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-indigo-600"></span>
+          3.2 3-Role Governance &amp; Operational Matrix (Job Postings)
+        </h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          Job syndication is governed by 3 distinct enterprise personas to ensure clear operational division between campaign publishing, hiring manager oversight, and system API configuration:
+        </p>
+
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold text-[11px]">
+                <th class="p-3">#</th>
+                <th class="p-3">Persona / Role Title</th>
+                <th class="p-3">System Role ID</th>
+                <th class="p-3">Core Operational Responsibilities</th>
+                <th class="p-3">Permission Boundaries</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-[11.5px]">
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-blue-600">1</td>
+                <td class="p-3 font-bold text-slate-900">
+                  Recruiter / Publisher
+                  <span class="block text-[10px] text-slate-400 font-normal">Primary Campaign Operator</span>
+                </td>
+                <td class="p-3 font-mono text-slate-600">recruiter</td>
+                <td class="p-3 text-slate-700 leading-relaxed">
+                  Selects approved JDs, configures distribution channels (Careers Site, LinkedIn, Naukri, Indeed, IJP, Referral), customizes screening knockout questions, sets scheduled/instant broadcast, and monitors incoming applicants.
+                </td>
+                <td class="p-3">
+                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Create, Schedule, Publish &amp; Pause</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-indigo-600">2</td>
+                <td class="p-3 font-bold text-slate-900">
+                  Hiring Manager
+                  <span class="block text-[10px] text-slate-400 font-normal">Technical &amp; Conversion Reviewer</span>
+                </td>
+                <td class="p-3 font-mono text-slate-600">hiring_manager</td>
+                <td class="p-3 text-slate-700 leading-relaxed">
+                  Previews how the job appears on external candidate boards, tracks candidate application conversion rate (Views ➔ Clicks ➔ Applies), and requests recruiter to boost sponsored slots or pause posting.
+                </td>
+                <td class="p-3">
+                  <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px]">View, Preview &amp; Conversion Tracking (Read-Only)</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-purple-600">3</td>
+                <td class="p-3 font-bold text-slate-900">
+                  Company Admin / Integration Lead
+                  <span class="block text-[10px] text-slate-400 font-normal">Platform &amp; API Governance</span>
+                </td>
+                <td class="p-3 font-mono text-slate-600">admin</td>
+                <td class="p-3 text-slate-700 leading-relaxed">
+                  Connects third-party job board APIs &amp; auth tokens (LinkedIn Recruiter REST API, Naukri SuperSet, Indeed XML feeds), configures custom job board feeds, manages company-wide UTM tracking schemas, and holds global kill-switch override.
+                </td>
+                <td class="p-3">
+                  <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold text-[10px]">API Setup, Global Unpublish &amp; Overrides</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3.3 Supported Distribution Channels -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-blue-600"></span>
+          3.3 Supported Portal Channels &amp; Integration Protocols
+        </h3>
+        
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold text-[11px]">
+                <th class="p-3">Portal / Channel</th>
+                <th class="p-3">Category</th>
+                <th class="p-3">Integration Protocol</th>
+                <th class="p-3">Estimated Talent Reach</th>
+                <th class="p-3">Target Candidate Pool</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-[11.5px]">
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-blue-600"></span> Careers Portal
+                </td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px]">Official Web</span></td>
+                <td class="p-3 font-mono text-slate-600">Direct Web Form Embed</td>
+                <td class="p-3 text-slate-700">5,000+ monthly visits</td>
+                <td class="p-3 text-slate-600">Organic direct branded traffic</td>
+              </tr>
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-sky-600"></span> LinkedIn Jobs
+                </td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-sky-100 text-sky-800 font-bold text-[10px]">Enterprise API</span></td>
+                <td class="p-3 font-mono text-slate-600">REST API Recruiter Feed</td>
+                <td class="p-3 text-slate-700">50,000+ professionals</td>
+                <td class="p-3 text-slate-600">High-intent passive &amp; active talent</td>
+              </tr>
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-orange-600"></span> Naukri.com
+                </td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 font-bold text-[10px]">Job Board</span></td>
+                <td class="p-3 font-mono text-slate-600">SuperSet REST API</td>
+                <td class="p-3 text-slate-700">80,000+ candidates</td>
+                <td class="p-3 text-slate-600">High-volume technical &amp; operations</td>
+              </tr>
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-indigo-600"></span> Indeed
+                </td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 font-bold text-[10px]">Global Sync</span></td>
+                <td class="p-3 font-mono text-slate-600">XML / Quick Apply Feed</td>
+                <td class="p-3 text-slate-700">120,000+ candidates</td>
+                <td class="p-3 text-slate-600">Global scale and quick applicants</td>
+              </tr>
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Employee Referral Portal
+                </td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Internal Network</span></td>
+                <td class="p-3 font-mono text-slate-600">Internal SSO Link Generator</td>
+                <td class="p-3 text-slate-700">Internal Workforce</td>
+                <td class="p-3 text-slate-600">Highest quality-to-hire ratio (4x higher retention)</td>
+              </tr>
+              <tr class="hover:bg-blue-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-pink-600"></span> Internal Mobility (IJP)
+                </td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-pink-100 text-pink-800 font-bold text-[10px]">Internal Talent</span></td>
+                <td class="p-3 font-mono text-slate-600">PeopleWorks Core HRMS API</td>
+                <td class="p-3 text-slate-700">Active Employees</td>
+                <td class="p-3 text-slate-600">Internal talent mobility and lateral role shifts</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 3.3 Posting Lifecycle & Workflow States -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-purple-600"></span>
+          3.3 Posting Lifecycle States &amp; Transitions
+        </h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5">
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-xs space-y-1">
+            <div class="font-bold text-slate-700 uppercase text-[10px]">1. Draft</div>
+            <p class="text-slate-500 text-[11px]">Configuration initiated, channel selection and screening questions in progress.</p>
+          </div>
+          <div class="p-3 rounded-xl border border-blue-200 bg-blue-50 text-xs space-y-1">
+            <div class="font-bold text-blue-700 uppercase text-[10px]">2. Scheduled</div>
+            <p class="text-slate-600 text-[11px]">Future publication date set; automated cron triggers syndication at specified time.</p>
+          </div>
+          <div class="p-3 rounded-xl border border-emerald-300 bg-emerald-50 text-xs space-y-1">
+            <div class="font-bold text-emerald-800 uppercase text-[10px]">3. Live / Active</div>
+            <p class="text-slate-600 text-[11px]">Job live on external boards; accepting candidate applications in real-time.</p>
+          </div>
+          <div class="p-3 rounded-xl border border-amber-200 bg-amber-50 text-xs space-y-1">
+            <div class="font-bold text-amber-800 uppercase text-[10px]">4. Paused</div>
+            <p class="text-slate-600 text-[11px]">Temporarily unlisted from public search (e.g. reviewing high candidate backlog).</p>
+          </div>
+          <div class="p-3 rounded-xl border border-rose-200 bg-rose-50 text-xs space-y-1">
+            <div class="font-bold text-rose-800 uppercase text-[10px]">5. Expired / Closed</div>
+            <p class="text-slate-600 text-[11px]">Position fulfilled or campaign period ended. Automatically redirects to talent pool.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.4 Custom Screening Questions & Knockout Criteria -->
+      <div class="space-y-3 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-emerald-600"></span>
+          3.4 Screening Questions, Knockout Criteria &amp; Application Form
+        </h3>
+        
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3 text-xs">
+          <p class="text-slate-600 leading-relaxed">
+            During job posting configuration, recruiters can customize candidate application requirements without modifying the core approved JD:
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+              <strong class="text-slate-900 font-bold flex items-center gap-1.5">
+                <span class="text-rose-500 font-extrabold">✕</span> Knockout Screening Questions
+              </strong>
+              <p class="text-slate-600 text-[11px]">
+                Defines non-negotiable criteria (e.g. <em>"Are you legally authorized to work in India without sponsorship?"</em>). Answering "No" automatically stages the candidate in <strong>Auto-Archived / Rejected</strong> with zero recruiter manual review.
+              </p>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
+              <strong class="text-slate-900 font-bold flex items-center gap-1.5">
+                <span class="text-emerald-500 font-extrabold">✓</span> Mandatory Application Attachments
+              </strong>
+              <p class="text-slate-600 text-[11px]">
+                Configure required inputs: Resume/CV upload (PDF/Word), Portfolio URL, LinkedIn Profile URL, Notice period declaration, and Current/Expected CTC.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.5 Social Sourcing, QR Codes & Referral Links -->
+      <div class="space-y-3 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-cyan-600"></span>
+          3.5 Social Sharing, QR Codes &amp; Employee Referral Campaigns
+        </h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1">
+            <strong class="text-slate-900 font-bold block">1-Click Social Sharing</strong>
+            <p class="text-slate-500 text-[11px] leading-relaxed">
+              Instant social cards tailored with OpenGraph meta-tags for <strong>LinkedIn</strong>, <strong>WhatsApp</strong>, and <strong>X (Twitter)</strong>.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1">
+            <strong class="text-slate-900 font-bold block">Campus &amp; Event QR Codes</strong>
+            <p class="text-slate-500 text-[11px] leading-relaxed">
+              High-resolution vector QR code generation for recruitment brochures, job fairs, walk-ins, and office signage.
+            </p>
+          </div>
+          <div class="p-3.5 rounded-xl border border-slate-200 bg-white space-y-1">
+            <strong class="text-slate-900 font-bold block">Referral Reward Tracking</strong>
+            <p class="text-slate-500 text-[11px] leading-relaxed">
+              Employee ID stamped in referral link. When the candidate is hired, the system flags the referrer for bonus disbursement.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.6 Step-by-Step Operator Workflow -->
+      <div class="space-y-3 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-slate-900"></span>
+          3.6 Step-by-Step Operator Workflow (Walkthrough)
+        </h3>
+
+        <div class="space-y-3">
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">1</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Select Approved Job Description (JD)</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Prerequisite</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Recruiter opens <strong>Job Postings Hub</strong> and clicks <strong>New Job Posting</strong>. Selects from the repository of Approved JDs. Core specifications and budget are inherited automatically.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">2</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Configure Channel Selection &amp; Budgets</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">Channel Setup</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Toggle target portals (Careers Site, LinkedIn, Naukri, Indeed, IJP, Referral). Optional: Set daily budget caps for sponsored LinkedIn/Indeed promotion.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">3</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Define Custom Screening &amp; Knockout Questions</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200">Quality Filter</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Add screening questions (Notice period, Location willingness, Technical certifications) and declare knockout rules for instant automated screening.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-300 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">4</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-emerald-950 text-sm">Broadcast Live &amp; Track Inbound Applications</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-600 text-white">Live Intake</span>
+              </div>
+              <p class="text-emerald-900 leading-relaxed text-[11.5px]">
+                Click <strong>Publish Job</strong>. Feeds syndicate immediately. Inbound candidate applications route directly into the <strong>Resume Intake &amp; Screening</strong> module tagged with precise channel attribution!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3.7 Visual Summary Bar -->
+      <div class="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 text-xs overflow-x-auto space-y-2 card-break-avoid">
+        <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">Job Posting &amp; Syndication Summary Flow:</div>
+        <div class="flex items-center gap-2 text-[11px] font-mono whitespace-nowrap">
+          <span class="p-2 bg-blue-600 rounded text-white font-bold">1. Select Approved JD</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-indigo-600 rounded text-white font-bold">2. Select Portals</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-purple-600 rounded text-white font-bold">3. Set Screening &amp; UTM</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-emerald-600 rounded text-white font-bold">4. Broadcast Live</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-cyan-400 rounded text-slate-950 font-bold">5. Route to Resume Intake</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         MODULE 4: RESUME INTAKE, AI PARSING & CANDIDATE SCREENING SPECIFICATION
+    ═════════════════════════════════════════════════════════════════════════ -->
+    <section class="space-y-6 page-break">
+      <!-- Section Header -->
+      <div class="border-b border-slate-200 pb-3 flex items-start justify-between flex-wrap gap-2">
+        <div>
+          <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">
+            Module 04: Ingestion &amp; Intelligence
+          </span>
+          <h2 class="text-xl font-bold text-slate-900 mt-2 flex items-center gap-2">
+            <span>Resume Intake, AI Parsing &amp; Candidate Screening Specification</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            Automated multi-channel candidate ingestion, optical resume parsing, intelligent deduplication, and AI semantic fit scoring.
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200">
+            Intake Core v3.0
+          </span>
+        </div>
+      </div>
+
+      <!-- 4.1 Business Objective & Intake Principles -->
+      <div class="space-y-3 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-emerald-600"></span>
+          4.1 Business Objective &amp; Intake Principles
+        </h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          The <strong>Resume Intake &amp; Screening Engine</strong> unifies inbound applications across all broadcast portals into a consolidated, normalized talent pool linked directly to the <strong>Active Requisition</strong>. It eliminates manual data entry via OCR/AI entity extraction, prevents duplicate talent profiles, and accelerates candidate qualification through weighted semantic scoring.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <div class="p-3.5 rounded-xl border border-emerald-200 bg-emerald-50/50 space-y-1 text-xs">
+            <strong class="text-emerald-900 font-bold flex items-center gap-1.5 text-xs">
+              <span class="text-base">⚡</span> Zero-Latency Inbound Sync
+            </strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              Applications from Careers page, LinkedIn Easy Apply, Naukri, and Referrals ingest in real time with 100% channel attribution tags.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-teal-200 bg-teal-50/50 space-y-1 text-xs">
+            <strong class="text-teal-900 font-bold flex items-center gap-1.5 text-xs">
+              <span class="text-base">🤖</span> Deep AI Entity Parsing
+            </strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              Extracts structured candidate profiles (Experience, Skills, Education, CTC, Notice Period) from PDF, DOCX, and scanned image resumes.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-cyan-200 bg-cyan-50/50 space-y-1 text-xs">
+            <strong class="text-cyan-900 font-bold flex items-center gap-1.5 text-xs">
+              <span class="text-base">🛡️</span> 3-Tier Intelligent Deduplication
+            </strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              Automated conflict resolution across Email, Phone Number, and LinkedIn URL to eliminate redundant candidate records.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.2 4-Role Governance & Operational Matrix for Resume Intake -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-emerald-600"></span>
+          4.2 4-Role Governance &amp; Operational Matrix (Resume Intake &amp; Screening)
+        </h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          Candidate intake and screening operations are strictly partitioned among 4 enterprise personas to guarantee high hiring velocity, deep technical vetting, executive sign-off, and compliance:
+        </p>
+
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold text-[11px]">
+                <th class="p-3">#</th>
+                <th class="p-3">Persona / Role Title</th>
+                <th class="p-3">System Role ID</th>
+                <th class="p-3">Core Operational Responsibilities</th>
+                <th class="p-3">Permission Boundaries</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-[11.5px]">
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-emerald-600">1</td>
+                <td class="p-3 font-bold text-slate-900">
+                  Recruiter / Resume Manager
+                  <span class="block text-[10px] text-slate-400 font-normal">Primary Intake Operator</span>
+                </td>
+                <td class="p-3 font-mono text-slate-600">recruiter</td>
+                <td class="p-3 text-slate-700 leading-relaxed">
+                  Uploads single/bulk resumes (PDF, DOCX, ZIP), reviews AI parsed profiles, verifies knockout question criteria, resolves duplicate candidate conflicts (Merge/Branch), shortlists qualified talent, and triggers candidate progression.
+                </td>
+                <td class="p-3">
+                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Upload, Parse, Deduplicate &amp; Shortlist</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-blue-600">2</td>
+                <td class="p-3 font-bold text-slate-900">
+                  Hiring Manager / Reviewer
+                  <span class="block text-[10px] text-slate-400 font-normal">Technical Scope &amp; Fit Evaluator</span>
+                </td>
+                <td class="p-3 font-mono text-slate-600">hiring_manager</td>
+                <td class="p-3 text-slate-700 leading-relaxed">
+                  Reviews recruiter-shortlisted candidate profiles, examines AI match breakdown (Technical Skills, Past Projects, Experience), provides technical feedback (Thumbs Up/Down + Notes), and requests interview scheduling.
+                </td>
+                <td class="p-3">
+                  <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-bold text-[10px]">Technical Fit Rating &amp; Interview Handoff</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-amber-600">3</td>
+                <td class="p-3 font-bold text-slate-900">
+                  Department Head / Approver
+                  <span class="block text-[10px] text-slate-400 font-normal">Leadership &amp; Strategic Scope</span>
+                </td>
+                <td class="p-3 font-mono text-slate-600">dept_head</td>
+                <td class="p-3 text-slate-700 leading-relaxed">
+                  Provides executive oversight for senior and leadership-tier applicants, evaluates compensation budget feasibility against initial Requisition limits, and grants stage-clearance for final offer track.
+                </td>
+                <td class="p-3">
+                  <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-bold text-[10px]">Executive Sign-off &amp; Strategic Approval</span>
+                </td>
+              </tr>
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-purple-600">4</td>
+                <td class="p-3 font-bold text-slate-900">
+                  Super Admin / ATS Admin
+                  <span class="block text-[10px] text-slate-400 font-normal">Platform &amp; Compliance Lead</span>
+                </td>
+                <td class="p-3 font-mono text-slate-600">admin</td>
+                <td class="p-3 text-slate-700 leading-relaxed">
+                  Configures AI parsing criteria and weighting algorithms, defines automated knockout disqualification rules, manages data retention / GDPR privacy consent policies, and oversees candidate rejection notification workflows.
+                </td>
+                <td class="p-3">
+                  <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold text-[10px]">AI Algorithm Config, GDPR &amp; Policy Control</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4.3 Ingestion Channels & Methods -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-emerald-600"></span>
+          4.3 Multi-Source Ingestion Protocols
+        </h3>
+        
+        <div class="overflow-x-auto rounded-2xl border border-slate-200">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold text-[11px]">
+                <th class="p-3">Ingestion Source</th>
+                <th class="p-3">Format Supported</th>
+                <th class="p-3">Processing Mechanism</th>
+                <th class="p-3">Attribution Source Tag</th>
+                <th class="p-3">Automation Level</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 text-[11.5px]">
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-blue-600"></span> Careers Portal Direct
+                </td>
+                <td class="p-3 font-mono text-slate-600">PDF, DOCX, Web Form</td>
+                <td class="p-3 text-slate-700">Direct HTTP REST Webhook</td>
+                <td class="p-3 font-mono text-blue-700">source=careers_portal</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">100% Real-time Automated</span></td>
+              </tr>
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-sky-600"></span> LinkedIn Easy Apply
+                </td>
+                <td class="p-3 font-mono text-slate-600">JSON + Attached Resume PDF</td>
+                <td class="p-3 text-slate-700">LinkedIn Partner API Ingest</td>
+                <td class="p-3 font-mono text-sky-700">source=linkedin_easy_apply</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">100% Real-time Automated</span></td>
+              </tr>
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-orange-600"></span> Naukri / Indeed Sync
+                </td>
+                <td class="p-3 font-mono text-slate-600">XML Feed / SuperSet Webhook</td>
+                <td class="p-3 text-slate-700">Scheduled Inbound Polling &amp; Push</td>
+                <td class="p-3 font-mono text-orange-700">source=naukri_api</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Automated Hourly Sync</span></td>
+              </tr>
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-purple-600"></span> Recruiter Bulk Upload
+                </td>
+                <td class="p-3 font-mono text-slate-600">ZIP Archive, Multi-PDF (up to 50 files)</td>
+                <td class="p-3 text-slate-700">Batch OCR Queue Worker</td>
+                <td class="p-3 font-mono text-purple-700">source=recruiter_upload</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 font-bold text-[10px]">Parallel Batch Async</span></td>
+              </tr>
+              <tr class="hover:bg-emerald-50/30">
+                <td class="p-3 font-bold text-slate-900 flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-600"></span> Employee Referral
+                </td>
+                <td class="p-3 font-mono text-slate-600">PDF, Referral Form Link</td>
+                <td class="p-3 text-slate-700">Internal Employee Portal SSO Link</td>
+                <td class="p-3 font-mono text-emerald-700">source=employee_referral</td>
+                <td class="p-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold text-[10px]">Priority Intake Flagged</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 4.4 AI Parsing & Semantic Fit Scoring Algorithm -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-teal-600"></span>
+          4.4 AI Parsing Engine &amp; Semantic Match Scoring
+        </h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          Every ingested resume is processed by the <strong>PeopleWorks AI Parser</strong>, converting raw text into normalized entity vectors and generating a 0–100% Fit Score against the linked approved JD:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <div class="p-3 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+            <div class="text-[10px] font-mono text-slate-400 font-bold uppercase">Weight: 40%</div>
+            <div class="text-sm font-bold text-blue-700">Technical Skills Match</div>
+            <p class="text-[11px] text-slate-600 leading-snug">
+              Direct and semantic overlap with mandatory &amp; preferred skills defined in JD.
+            </p>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+            <div class="text-[10px] font-mono text-slate-400 font-bold uppercase">Weight: 30%</div>
+            <div class="text-sm font-bold text-indigo-700">Experience &amp; Seniority</div>
+            <p class="text-[11px] text-slate-600 leading-snug">
+              Total relevant years of experience compared to target band range (e.g., 5-8 yrs).
+            </p>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+            <div class="text-[10px] font-mono text-slate-400 font-bold uppercase">Weight: 15%</div>
+            <div class="text-sm font-bold text-purple-700">Education &amp; Credentials</div>
+            <p class="text-[11px] text-slate-600 leading-snug">
+              Verification of required degree (B.Tech/MCA), certifications, and academic pedigree.
+            </p>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 bg-white shadow-2xs space-y-1">
+            <div class="text-[10px] font-mono text-slate-400 font-bold uppercase">Weight: 15%</div>
+            <div class="text-sm font-bold text-emerald-700">Knockout &amp; Notice Period</div>
+            <p class="text-[11px] text-slate-600 leading-snug">
+              Availability within target notice period (&le; 30 days) and location/hybrid alignment.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.5 Deduplication & Conflict Resolution Protocol -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-cyan-600"></span>
+          4.5 Intelligent Deduplication Protocol &amp; Conflict Matrix
+        </h3>
+        <p class="text-slate-600 text-xs leading-relaxed">
+          To prevent duplicate profile creation when candidates apply via multiple portals, the system executes a 3-tier validation sequence:
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 space-y-1 text-xs">
+            <strong class="text-slate-900 font-bold block text-xs">1. Exact Email Match</strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              If email matches existing database record within past 180 days, system triggers <strong>Duplicate Alert</strong> with previous application history.
+            </p>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 space-y-1 text-xs">
+            <strong class="text-slate-900 font-bold block text-xs">2. Normalized Phone Match</strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              E.164 normalized phone comparison identifies returning candidates even if alternate email address was utilized.
+            </p>
+          </div>
+
+          <div class="p-3 rounded-xl border border-slate-200 bg-slate-50 space-y-1 text-xs">
+            <strong class="text-slate-900 font-bold block text-xs">3. Resolution Options</strong>
+            <p class="text-slate-600 text-[11px] leading-relaxed">
+              Recruiter can: <strong>Merge Application</strong>, <strong>Create Multi-REQ Branch</strong>, or <strong>Discard Stale Submission</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.6 Step-by-Step Candidate Intake Operational Walkthrough -->
+      <div class="space-y-4 card-break-avoid">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-700 flex items-center gap-2">
+          <span class="w-1.5 h-3.5 rounded bg-emerald-600"></span>
+          4.6 Step-by-Step Candidate Intake &amp; Screening Flow (Detailed Operational Walkthrough)
+        </h3>
+
+        <div class="space-y-4">
+          <!-- Step 1 -->
+          <div class="p-4.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-8 h-8 rounded-xl bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-xs">1</div>
+            <div class="flex-1 space-y-2">
+              <div class="flex items-center justify-between flex-wrap gap-1">
+                <strong class="text-slate-900 text-sm">Multi-Source Ingestion &amp; Active REQ Pipeline Sync</strong>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-blue-50 text-blue-700 border border-blue-200">Actor: Ingestion Engine / Recruiter</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-xs">
+                Candidate applications flow into the centralized intake queue through two primary pathways:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] pt-1">
+                <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                  <strong class="text-slate-800 flex items-center gap-1 font-semibold">🌐 Automated Multi-Channel Sync</strong>
+                  <p class="text-slate-600">Candidates applying via <strong>Careers Portal</strong>, <strong>LinkedIn Easy Apply</strong>, <strong>Naukri</strong>, <strong>Indeed</strong>, or <strong>Employee Referral</strong> links arrive instantly with origin metadata (<code class="font-mono text-blue-700 text-[10px]">source=linkedin</code>).</p>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                  <strong class="text-slate-800 flex items-center gap-1 font-semibold">📁 Direct Recruiter Bulk Upload</strong>
+                  <p class="text-slate-600">Recruiters use <strong>Add / Upload Resume</strong> to drag &amp; drop single PDF files or bulk ZIP archives (up to 50 resumes) bound directly to the active requisition (<code class="font-mono text-emerald-700 text-[10px]">REQ-2026-0001</code>).</p>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-500 flex items-center gap-2 pt-1 border-t border-slate-100">
+                <span class="font-bold text-slate-700">UI Screen Outcome:</span>
+                <span>Applications appear in candidate grid tagged with source badges and initial status <span class="font-mono text-blue-700 font-bold">NEW_APPLIED</span>.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-4.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-8 h-8 rounded-xl bg-teal-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-xs">2</div>
+            <div class="flex-1 space-y-2">
+              <div class="flex items-center justify-between flex-wrap gap-1">
+                <strong class="text-slate-900 text-sm">High-Speed OCR &amp; Deep AI Entity Extraction</strong>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-teal-50 text-teal-700 border border-teal-200">Actor: AI Parser Engine</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-xs">
+                The optical character recognition (OCR) worker extracts raw document text and transforms unstructured resume files into structured talent vectors in &lt; 2 seconds per file.
+              </p>
+              <div class="p-2.5 rounded-lg bg-teal-50/50 border border-teal-200/70 text-[11.5px] space-y-1">
+                <div class="font-bold text-teal-950">Extracted Entities &amp; Data Fields:</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-[10.5px] text-slate-700 pt-0.5">
+                  <div>• <strong>Contact:</strong> Name, Email, Phone</div>
+                  <div>• <strong>Work Exp:</strong> 5.5 yrs total, Current role</div>
+                  <div>• <strong>Skills:</strong> React, TypeScript, Redux</div>
+                  <div>• <strong>Pedigree:</strong> B.Tech/MCA, Certifications</div>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-500 flex items-center gap-2 pt-1 border-t border-slate-100">
+                <span class="font-bold text-slate-700">UI Screen Outcome:</span>
+                <span>Zero manual typing needed. Candidate profile drawer auto-populates complete work timeline and verified skill tags.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-4.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-8 h-8 rounded-xl bg-cyan-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-xs">3</div>
+            <div class="flex-1 space-y-2">
+              <div class="flex items-center justify-between flex-wrap gap-1">
+                <strong class="text-slate-900 text-sm">3-Tier Deduplication &amp; Knockout Evaluation</strong>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-cyan-50 text-cyan-700 border border-cyan-200">Actor: System Validation</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-xs">
+                System validates incoming profile across 3 distinct data points to prevent duplicate talent records and verifies mandatory knockout requirements:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] pt-1">
+                <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                  <strong class="text-slate-800 font-semibold">🔍 Deduplication Validation</strong>
+                  <p class="text-slate-600">Cross-checks Email, E.164 Phone, and LinkedIn URL against 180-day applicant history. If a match is found, system triggers a <strong>Duplicate Profile Alert</strong> with Merge/Branch options.</p>
+                </div>
+                <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200/80 space-y-1">
+                  <strong class="text-slate-800 font-semibold">⚡ Knockout Criteria Evaluation</strong>
+                  <p class="text-slate-600">Compares applicant parameters with mandatory requirements (<code class="font-mono bg-slate-100 text-[10px] px-1">Notice &le; 30 Days</code>, <code class="font-mono bg-slate-100 text-[10px] px-1">Location: Bangalore</code>). Failing candidates are tagged with <span class="font-mono text-amber-700 font-bold">Knockout Failed</span>.</p>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-500 flex items-center gap-2 pt-1 border-t border-slate-100">
+                <span class="font-bold text-slate-700">UI Screen Outcome:</span>
+                <span>Candidates passing knockouts display green compliance indicators; non-compliant candidates display amber review flags.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="p-4.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-xs">4</div>
+            <div class="flex-1 space-y-2">
+              <div class="flex items-center justify-between flex-wrap gap-1">
+                <strong class="text-slate-900 text-sm">Recruiter Screening &amp; AI Fit Score Review</strong>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-indigo-50 text-indigo-700 border border-indigo-200">Actor: Recruiter / Resume Manager</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-xs">
+                The Recruiter opens the candidate detail drawer to inspect the deep AI evaluation and conduct recruiter qualification:
+              </p>
+              <div class="p-2.5 rounded-lg bg-indigo-50/50 border border-indigo-200/70 text-[11.5px] space-y-1">
+                <div class="font-bold text-indigo-950">AI Fit Score Algorithm Breakdown (0–100%):</div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-[10.5px] text-slate-700 pt-0.5">
+                  <div>• <strong>Skills Match (40%):</strong> JD tech stack overlap</div>
+                  <div>• <strong>Experience (30%):</strong> Relevant years in band</div>
+                  <div>• <strong>Education (15%):</strong> Required qualifications</div>
+                  <div>• <strong>Knockout (15%):</strong> Notice period &amp; shift fit</div>
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-500 flex items-center gap-2 pt-1 border-t border-slate-100">
+                <span class="font-bold text-slate-700">UI Action &amp; Outcome:</span>
+                <span>Recruiter confirms compensation expectation and clicks <strong>Mark as Shortlisted</strong>. Status advances to <span class="font-mono text-emerald-700 font-bold">SHORTLISTED</span>.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="p-4.5 rounded-2xl bg-emerald-50/70 border border-emerald-300 shadow-sm flex items-start gap-4">
+            <div class="w-8 h-8 rounded-xl bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 mt-0.5 shadow-xs">5</div>
+            <div class="flex-1 space-y-2">
+              <div class="flex items-center justify-between flex-wrap gap-1">
+                <strong class="text-emerald-950 text-sm">Hiring Manager Technical Sign-Off &amp; Interview Handoff</strong>
+                <span class="text-[10px] font-bold px-2.5 py-0.5 rounded-md bg-emerald-600 text-white shadow-2xs">Actor: Hiring Manager / Reviewer</span>
+              </div>
+              <p class="text-emerald-900 leading-relaxed text-xs">
+                The Hiring Manager reviews the shortlisted talent queue to conduct technical qualification before interview scheduling:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-[11px] pt-1">
+                <div class="p-2.5 rounded-lg bg-white/80 border border-emerald-200 space-y-1">
+                  <strong class="text-emerald-950 font-semibold">👍 Technical Fit Feedback</strong>
+                  <p class="text-emerald-900">HM examines code samples, past enterprise projects, and logs a <strong>Thumbs Up / Down</strong> rating with private notes (e.g., <em>"Strong architecture background, recommend 1st round"</em>).</p>
+                </div>
+                <div class="p-2.5 rounded-lg bg-white/80 border border-emerald-200 space-y-1">
+                  <strong class="text-emerald-950 font-semibold">📅 1-Click Interview Initiation</strong>
+                  <p class="text-emerald-900">HM clicks <strong>Schedule Technical Interview</strong>. The candidate record is automatically promoted to <strong>Module 5: Interview Scheduling &amp; Evaluation</strong> with full audit history.</p>
+                </div>
+              </div>
+              <div class="text-[11px] text-emerald-800 flex items-center gap-2 pt-1 border-t border-emerald-200">
+                <span class="font-bold text-emerald-950">Next Pipeline Stage:</span>
+                <span>Candidate enters Round 1 Technical Assessment queue with automated panelist calendar invites!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4.7 Visual Summary Bar -->
+      <div class="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 text-xs overflow-x-auto space-y-2 card-break-avoid">
+        <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">Resume Intake &amp; Screening Summary Flow:</div>
+        <div class="flex items-center gap-2 text-[11px] font-mono whitespace-nowrap">
+          <span class="p-2 bg-emerald-600 rounded text-white font-bold">1. Ingest (Multi-Channel)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-teal-600 rounded text-white font-bold">2. OCR &amp; AI Entity Parse</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-cyan-600 rounded text-white font-bold">3. Deduplicate &amp; Knockout Check</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-blue-600 rounded text-white font-bold">4. Recruiter Shortlist</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-purple-500 rounded text-white font-bold">5. HM Technical Review &amp; Interview</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         MODULE 5: CANDIDATE MANAGEMENT & REPOSITORY (CANDIDATE 360)
+    ═════════════════════════════════════════════════════════════════════════ -->
+    <section class="space-y-8 page-break">
+      
+      <!-- Module 5 Title Banner -->
+      <div class="bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-transparent p-4 rounded-2xl border border-emerald-200/80">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="px-2.5 py-0.5 rounded-md bg-emerald-600 text-white font-mono text-[10px] font-bold">MODULE 5</span>
+          <span class="text-xs font-bold text-emerald-900 uppercase tracking-wider">Candidate 360 &amp; Application Lifecycle</span>
+        </div>
+        <h2 class="text-xl font-extrabold text-slate-900">Candidate Management &amp; Repository Module</h2>
+        <p class="text-xs text-slate-600 mt-1">
+          Unified single source of truth for talent profiles across the enterprise. Features Candidate 360 profile decoupling (Person Entity vs Multi-Requisition Applications), 4-role deterministic RBAC, 6-stage recruitment pipeline, and cross-module live sync.
+        </p>
+      </div>
+
+      <!-- 5.1 Architecture & Person vs Application Decoupling -->
+      <div class="space-y-3">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+          <i data-lucide="layers" class="w-4 h-4 text-emerald-600"></i>
+          <span>5.1 Candidate 360 Architecture: Person Entity vs. Applications</span>
+        </h3>
+        
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3 text-xs">
+          <p class="text-slate-600 leading-relaxed">
+            The Candidate Module decouples the core candidate identity (Person Entity) from requisition-specific applications (Application Entity). This allows a single candidate to maintain multiple concurrent or historical applications while preserving a consolidated audit record.
+          </p>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200 space-y-2">
+              <div class="font-bold text-slate-900 flex items-center gap-1.5 text-xs">
+                <i data-lucide="user" class="w-3.5 h-3.5 text-blue-600"></i>
+                <span>Candidate Entity (Person)</span>
+              </div>
+              <ul class="text-[11px] text-slate-600 space-y-1 list-disc list-inside">
+                <li>Primary ID (<code class="font-mono bg-slate-100 px-1">CAN-2026-XXXX</code>)</li>
+                <li>Full Name, Primary Email, Verified Phone (E.164)</li>
+                <li>Current Location, Total Experience, Education Credentials</li>
+                <li>Master Skill Graph &amp; Verified Skill Badges</li>
+                <li>SHA-256 Resume Hash &amp; Non-Duplicate Certification</li>
+              </ul>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-white border border-slate-200 space-y-2">
+              <div class="font-bold text-slate-900 flex items-center gap-1.5 text-xs">
+                <i data-lucide="briefcase" class="w-3.5 h-3.5 text-purple-600"></i>
+                <span>Application Entity (Job Specific)</span>
+              </div>
+              <ul class="text-[11px] text-slate-600 space-y-1 list-disc list-inside">
+                <li>Application ID (<code class="font-mono bg-slate-100 px-1">APP-2026-XXXX</code>) linked to <code class="font-mono bg-slate-100 px-1">REQ-2026-XXXX</code></li>
+                <li>Target Job Title &amp; Department</li>
+                <li>Current Stage (<code class="font-mono text-emerald-700 font-bold">Interview</code>) &amp; Status (<code class="font-mono text-blue-700 font-bold">Active</code>)</li>
+                <li>AI Fit Score against Requisition JD Criteria</li>
+                <li>Interviewer Scorecards, Notes &amp; Offer Packages</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5.2 4-Role RBAC Governance & Step-by-Step Flow -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+          <span>5.2 RBAC Governance: 4 Standard ATS Operational Roles</span>
+        </h3>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border border-slate-200 rounded-xl overflow-hidden shadow-2xs">
+            <thead class="bg-slate-100 text-slate-700 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
+              <tr>
+                <th class="p-3">Role</th>
+                <th class="p-3">Operational Scope</th>
+                <th class="p-3">Primary Use &amp; Responsibility</th>
+                <th class="p-3">Step-by-Step Execution in Candidate Module</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 bg-white">
+              <tr>
+                <td class="p-3 font-bold text-blue-700">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                    <span>Recruiter</span>
+                  </div>
+                </td>
+                <td class="p-3 font-mono text-[11px] text-slate-600">Assigned Candidates &amp; REQs</td>
+                <td class="p-3 text-slate-700">Talent Sourcing, Ingestion, Initial Screening &amp; Candidate Pipeline Coordination.</td>
+                <td class="p-3 text-slate-600 text-[11px]">
+                  1. Ingests resume via single/bulk upload.<br/>
+                  2. Checks AI Match score &amp; validates notice period/budget.<br/>
+                  3. Enters recruiter screening notes.<br/>
+                  4. Clicks <strong>Mark as Shortlisted</strong> to forward to HM queue.
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-purple-700">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                    <span>Hiring Manager</span>
+                  </div>
+                </td>
+                <td class="p-3 font-mono text-[11px] text-slate-600">Assigned Requisitions Only</td>
+                <td class="p-3 text-slate-700">Technical Gatekeeper, Scope Evaluation &amp; Interview Initiation.</td>
+                <td class="p-3 text-slate-600 text-[11px]">
+                  1. Filters repository by assigned REQ.<br/>
+                  2. Inspects candidate 360 skills &amp; experience.<br/>
+                  3. Provides technical fit rating (<strong>Recommend Tech</strong> / <strong>Not a Fit</strong>).<br/>
+                  4. Clicks <strong>Schedule Interview (R1)</strong> to advance candidate to Interviews Hub.
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-emerald-700">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span>HR Admin</span>
+                  </div>
+                </td>
+                <td class="p-3 font-mono text-[11px] text-slate-600">Organization-Wide Scope</td>
+                <td class="p-3 text-slate-700">Compensation Governance, Background Verification, Offer Release &amp; Onboarding Handoff.</td>
+                <td class="p-3 text-slate-600 text-[11px]">
+                  1. Reviews panel feedback &amp; salary expectations.<br/>
+                  2. Validates budget compliance against REQ approved bands.<br/>
+                  3. Drafts and extends official offer letter.<br/>
+                  4. Marks candidate as <strong>Hired</strong> for HRIS integration.
+                </td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold text-amber-700">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                    <span>ATS Admin</span>
+                  </div>
+                </td>
+                <td class="p-3 font-mono text-[11px] text-slate-600">Global System Scope</td>
+                <td class="p-3 text-slate-700">Super Admin, Pipeline Customization, Deduplication Conflicts &amp; Manager Overrides.</td>
+                <td class="p-3 text-slate-600 text-[11px]">
+                  1. Audits enterprise-wide candidate velocity metrics.<br/>
+                  2. Resolves duplicate candidate merge conflicts.<br/>
+                  3. Performs stage rollbacks or managerial overrides if panelists are on leave.<br/>
+                  4. Configures custom pipeline fields &amp; RBAC policies.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- 5.3 Step-by-Step Candidate & Application Flow -->
+      <div class="space-y-4 card-break-avoid">
+        <div class="flex items-center gap-2.5">
+          <div class="w-6 h-6 rounded-lg bg-emerald-600 text-white font-bold flex items-center justify-center text-xs">5.3</div>
+          <h3 class="text-base font-bold text-slate-900 tracking-tight">Step-by-Step Candidate &amp; Application Flow</h3>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <!-- Step 1 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">1</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Recruiter Ingests Candidate &amp; System Deduplicates</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200">Actor: Recruiter / Ingestion Engine</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Recruiter imports candidate profile from Resume Intake or creates record manually. System computes SHA-256 fingerprint hash and checks 180-day applicant history for duplicate collisions across Email and Phone. Candidate record initialized as <span class="font-mono text-slate-700 font-bold">APPLIED</span> (<code class="font-mono bg-blue-50 text-blue-700 px-1">CAN-2026-0089</code>).
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-sky-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">2</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">AI Evaluates Semantic Match &amp; Recruiter Qualifies Profile</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-50 text-sky-700 border border-sky-200">Actor: AI Engine &amp; Recruiter</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                AI benchmarks extracted skills against active Requisition JD, generating weighted score (e.g. <code class="font-mono bg-emerald-50 text-emerald-700 px-1">85% Match</code>). Recruiter logs screening notes, confirms candidate communication proficiency, salary expectation, and notice period (&le; 30 Days). State becomes <span class="font-mono text-sky-700 font-bold">SCREENING</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-purple-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">3</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Recruiter Marks Profile as Shortlisted for Technical Review</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200">Actor: Recruiter</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Recruiter clicks <strong>Mark as Shortlisted</strong>. Action button transforms into an idempotent <code class="font-mono bg-emerald-50 text-emerald-700 px-1">Shortlisted</code> badge to prevent re-clicks. Candidate profile is automatically assigned to the Hiring Manager's requisition queue under <span class="font-mono text-purple-700 font-bold">SHORTLISTED</span>.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-amber-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">4</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Hiring Manager Reviews Technical Scope &amp; Schedules Round 1</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-700 border border-amber-200">Actor: Hiring Manager</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Hiring Manager opens Candidate 360 profile, inspects technical skills and project history, and clicks <strong>Schedule Technical Interview (R1)</strong>. Candidate automatically progresses to Module 6 (Interviews Hub) in <span class="font-mono text-amber-700 font-bold">INTERVIEW</span> stage with panel calendar invites.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-cyan-600 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">5</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-slate-900 text-sm">Panel Conducts Technical Assessments &amp; Submits Scorecards</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-50 text-cyan-700 border border-cyan-200">Actor: Interview Panel</span>
+              </div>
+              <p class="text-slate-600 leading-relaxed text-[11.5px]">
+                Interview panel conducts Round 1 (Technical Automation), Round 2 (System Architecture), and HR Culture assessments. Structured scorecards and ratings are recorded. Cumulative panel recommendation triggers <span class="font-mono text-cyan-700 font-bold">OFFER</span> stage.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-300 shadow-sm flex items-start gap-4">
+            <div class="w-7 h-7 rounded-lg bg-emerald-700 text-white font-bold flex items-center justify-center shrink-0 mt-0.5">6</div>
+            <div class="flex-1 space-y-1">
+              <div class="flex items-center justify-between">
+                <strong class="text-emerald-950 text-sm">HR Admin Extends Approved Offer &amp; Completes Hired Onboarding</strong>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-600 text-white">Actor: HR Admin / Compliance</span>
+              </div>
+              <p class="text-emerald-900 leading-relaxed text-[11.5px]">
+                HR Admin verifies compensation budget compliance (₹18L–₹24L), generates digitally-signed offer letter, and extends to candidate. Upon candidate acceptance, application status transitions to <span class="font-mono text-emerald-950 font-black">HIRED</span> with automated handoff to HRIS and Pre-boarding!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5.4 6-Stage Application Pipeline Lifecycle Grid -->
+      <div class="space-y-4">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+          <i data-lucide="git-commit" class="w-4 h-4 text-emerald-600"></i>
+          <span>5.4 The 6-Stage Recruitment Pipeline Specification</span>
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+          
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-slate-200 text-slate-700">STAGE 1</span>
+              <span class="text-[10px] font-bold text-slate-500">Order: 1</span>
+            </div>
+            <strong class="text-slate-900 text-xs block">Applied</strong>
+            <p class="text-slate-600 text-[11px]">Candidate application ingested via career portal, job board sync, employee referral, or resume upload. SHA-256 fingerprint deduplication verified.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-sky-200 text-sky-800">STAGE 2</span>
+              <span class="text-[10px] font-bold text-sky-600">Order: 2</span>
+            </div>
+            <strong class="text-sky-950 text-xs block">Screening</strong>
+            <p class="text-sky-900 text-[11px]">AI semantic engine parses resume skills and benchmarks candidate against active Requisition JD, generating weighted score (0–100%). Recruiter reviews fit.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-purple-50 border border-purple-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-purple-200 text-purple-800">STAGE 3</span>
+              <span class="text-[10px] font-bold text-purple-600">Order: 3</span>
+            </div>
+            <strong class="text-purple-950 text-xs block">Shortlisted</strong>
+            <p class="text-purple-900 text-[11px]">Recruiter endorses profile. Candidate enters Hiring Manager's technical review queue for project fit and technical assessment greenlight.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-amber-200 text-amber-800">STAGE 4</span>
+              <span class="text-[10px] font-bold text-amber-600">Order: 4</span>
+            </div>
+            <strong class="text-amber-950 text-xs block">Interview</strong>
+            <p class="text-amber-900 text-[11px]">Technical assessments conducted across multiple rounds (Round 1 Tech, Round 2 System Design, HR Culture Fit). Feedback and ratings recorded.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-cyan-50 border border-cyan-200 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-200 text-cyan-800">STAGE 5</span>
+              <span class="text-[10px] font-bold text-cyan-600">Order: 5</span>
+            </div>
+            <strong class="text-cyan-950 text-xs block">Offer</strong>
+            <p class="text-cyan-900 text-[11px]">Compensation package approved by HOD/Finance. Official offer letter generated, digitally signed, and extended to candidate.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-800">STAGE 6</span>
+              <span class="text-[10px] font-bold text-emerald-700">Order: 6</span>
+            </div>
+            <strong class="text-emerald-950 text-xs block">Hired</strong>
+            <p class="text-emerald-900 text-[11px]">Signed offer letter received. Candidate profile locked and automatically exported to HRIS and Pre-boarding module.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 5.4 Candidate 360 UI Architecture Specifications -->
+      <div class="space-y-3">
+        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+          <i data-lucide="layout" class="w-4 h-4 text-emerald-600"></i>
+          <span>5.4 Candidate 360 UI Standards: 2-Card Uniform Layout</span>
+        </h3>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm text-xs space-y-3">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+              <strong class="text-slate-900 block text-xs">Card 1: Entity Header &amp; Metadata Grid</strong>
+              <ul class="text-[11px] text-slate-600 space-y-1 list-disc list-inside">
+                <li>Back Navigation, Full Candidate Name &amp; Live Status Badge</li>
+                <li>Candidate ID (<code class="font-mono bg-slate-100 text-[10px] px-1">CAN-2026-0089</code>) &amp; AI Score Pill (<code class="font-mono text-emerald-700 font-bold">85% Match</code>)</li>
+                <li>Contextual Action Toolbar: Idempotent <code class="font-mono bg-slate-100 text-[10px] px-1">Shortlisted</code> &amp; <code class="font-mono bg-slate-100 text-[10px] px-1">Interview Scheduled</code> state badges</li>
+                <li>Aligned 4-Column x 2-Row Metadata Grid (Linked REQ, Role, Experience, Source, Email, Phone, Location, Ref ID)</li>
+              </ul>
+            </div>
+
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 space-y-1.5">
+              <strong class="text-slate-900 block text-xs">Card 2: Stepper, Tabbed Panels &amp; Sidebar (8+4 Grid)</strong>
+              <ul class="text-[11px] text-slate-600 space-y-1 list-disc list-inside">
+                <li>Mild blue glassmorphic horizontal Lifecycle Stepper with checkmarks</li>
+                <li>Pill-style tab bar with dynamic active brand color (<code class="font-mono bg-slate-100 text-[10px] px-1">var(--pw-brand)</code>)</li>
+                <li>5 Tabs: AI Fit Analysis, Parsed Profile, REQ Alignment, Reviewer Decisions, Activity Audit</li>
+                <li>Right Sidebar: Quick Info Card, Duplicate Guard Status, Linked Requisition Summary</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5.5 Visual Summary Bar -->
+      <div class="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 text-xs overflow-x-auto space-y-2 card-break-avoid">
+        <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-bold">Candidate 360 &amp; Application Lifecycle Flow:</div>
+        <div class="flex items-center gap-2 text-[11px] font-mono whitespace-nowrap">
+          <span class="p-2 bg-slate-700 rounded text-white font-bold">1. Applied (Ingested)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-sky-600 rounded text-white font-bold">2. Screening (AI &amp; Recruiter)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-purple-600 rounded text-white font-bold">3. Shortlisted (HM Queue)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-amber-600 rounded text-white font-bold">4. Interview (R1, R2, HR)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-cyan-600 rounded text-white font-bold">5. Offer (Compensation &amp; Sign)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="p-2 bg-emerald-500 rounded text-slate-950 font-extrabold">6. Hired (HRIS Handoff)</span>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════════════
+         MODULE 6: COMPLETE END-TO-END PIPELINE SUMMARY
+    ═════════════════════════════════════════════════════════════════════════ -->
+    <section class="space-y-4 page-break">
+      <div class="border-b border-slate-200 pb-2">
+        <span class="text-[11px] font-extrabold uppercase tracking-widest text-slate-700 bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200">
+          Master Enterprise Lifecycle Map
+        </span>
+        <h2 class="text-xl font-bold text-slate-900 mt-2">End-to-End Enterprise Talent Acquisition Flow</h2>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-gradient-to-br from-slate-950 via-slate-900 to-blue-950 text-white border border-slate-800 text-xs overflow-x-auto space-y-4">
+        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider font-bold">Unified ATS Operational Flow (Modules 1 to 6):</div>
+        <div class="flex items-center gap-2 text-[11px] font-mono whitespace-nowrap">
+          <span class="px-3 py-2 bg-blue-600/90 rounded-lg text-white font-bold">1. REQ Submitted</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-purple-600/90 rounded-lg text-white font-bold">2. Dept Head Signed (L1)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-amber-600/90 rounded-lg text-white font-bold">3. Finance Cleared (L2)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-emerald-600/90 rounded-lg text-white font-bold">4. HR Approved (L3)</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-sky-600/90 rounded-lg text-white font-bold">5. REQ-Linked JD Drafted</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-teal-600/90 rounded-lg text-white font-bold">6. Multi-Portal Broadcast</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-emerald-500/90 rounded-lg text-white font-bold">7. AI Resume Intake</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-indigo-600/90 rounded-lg text-white font-bold">8. Candidate 360 Pipeline</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-purple-500/90 rounded-lg text-white font-bold">9. Interview Evaluation</span>
+          <span class="text-slate-500">➔</span>
+          <span class="px-3 py-2 bg-emerald-400 rounded-lg text-slate-950 font-extrabold">10. Offer &amp; Hired Handoff</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-6 border-t border-slate-200 text-center text-xs text-slate-400">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <span class="font-semibold text-slate-600">PeopleWorks ATS Product &amp; Engineering</span>
+        <span>Requisitions, JD &amp; Job Postings Lifecycle Specification • Enterprise Standard</span>
+        <span class="font-mono text-slate-500">v3.0.0</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Script for PDF Download -->
+  <script>
+    lucide.createIcons();
+
+    function downloadAsPDF() {
+      const element = document.getElementById('frs-content');
+      const opt = {
+        margin:       [10, 10, 10, 10],
+        filename:     'PeopleWorks_ATS_Requisition_and_JD_FRS.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      };
+
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = '<span class="animate-spin inline-block mr-1">⏳</span> Generating PDF...';
+      btn.disabled = true;
+
+      html2pdf().set(opt).from(element).save().then(() => {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        lucide.createIcons();
+      }).catch(err => {
+        console.error('PDF export error, falling back to print:', err);
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        window.print();
+      });
+    }
+  </script>
+</body>
+</html>

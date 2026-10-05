@@ -1,0 +1,6 @@
+@PeopleWorks.ATS.Api_HostAddress = http://localhost:5271
+
+GET {{PeopleWorks.ATS.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

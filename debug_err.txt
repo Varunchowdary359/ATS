@@ -1,0 +1,8 @@
+ReferenceError: AIContextService is not defined
+    at CandidateIntakeWorkflow._handleCancellation (C:/Users/xdI005/Desktop/ATS--sujith-ui/src/services/ai/workflow/CandidateIntakeWorkflow.js:1118:5)
+    at CandidateIntakeWorkflow.processTurn (C:/Users/xdI005/Desktop/ATS--sujith-ui/src/services/ai/workflow/CandidateIntakeWorkflow.js:642:19)
+    at MockAIProvider.generateCompletion (C:/Users/xdI005/Desktop/ATS--sujith-ui/src/services/ai/MockAIProvider.js:37:41)
+    at C:/Users/xdI005/Desktop/ATS--sujith-ui/src/services/ai/AIService.js:130:26
+    at AIServiceImpl.sendMessage (C:/Users/xdI005/Desktop/ATS--sujith-ui/src/services/ai/AIService.js:195:12)
+    at C:/Users/xdI005/Desktop/ATS--sujith-ui/src/services/ai/ai.test.js:1345:25
+    at file:///C:/Users/xdI005/Desktop/ATS--sujith-ui/node_modules/@vitest/runner/dist/chunk-artifact.js:1903:20

@@ -1,0 +1,21 @@
+/**
+ * Enterprise Preboarding Realistic Pre-Seeded Dataset
+ * PeopleWorks ATS SaaS
+ */
+
+import {
+  PREBOARDING_STATUS,
+  ACTION_STATUS,
+  DOCUMENT_STATUS,
+  DOCUMENT_CATEGORY,
+  BGV_CHECK_TYPE,
+  BGV_STATUS,
+  TASK_ASSIGNEE_ROLE,
+  TASK_STATUS,
+  TASK_PRIORITY,
+  HANDOFF_STATUS,
+  WORK_ARRANGEMENT,
+  EMPLOYMENT_TYPE
+} from './preboardingTypes';
+
+export const INITIAL_PREBOARDING_RECORDS = [];
